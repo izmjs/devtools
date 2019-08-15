@@ -1,0 +1,112 @@
+{
+  "FILES_URL": {
+    "name": "Files URL",
+    "defaultValue": "http://localhost:3000/api/v1/devtools/files/open",
+    "scope": "devtools"
+  },
+  "FILES_TYPE": {
+    "name": "Files type",
+    "defaultValue": "local",
+    "scope": "devtools",
+    "schema": {
+      "type": "string",
+      "enum": ["local", "gitlab"]
+    }
+  },
+  "POSTMAN_KEY": {
+    "name": "Postman key",
+    "defaultValue": "",
+    "scope": "devtools"
+  },
+  "CLEAN_ON_BOOT": {
+    "name": "Clean postman cache on boot?",
+    "defaultValue": true,
+    "schema": {
+      "type": "boolean"
+    },
+    "scope": "devtools"
+  },
+  "TRANSLATE_ENGINE": {
+    "name": "Translation engine",
+    "defaultValue": "google",
+    "schema": {
+      "type": "string",
+      "enum": ["google", "yandex"]
+    },
+    "scope": "devtools"
+  },
+  "TRANSLATE_KEY": {
+    "name": "Translation provider key",
+    "defaultValue": "",
+    "scope": "devtools"
+  },
+  "TRANSLATE_BASE_LANGUAGE": {
+    "name": "Translation base language",
+    "defaultValue": "en",
+    "schema": {
+      "type": "string",
+      "enum": ["en", "zh", "hi", "es", "fr", "ar", "ru", "bn", "pt", "id"]
+    },
+    "scope": "devtools"
+  },
+  "ADD_IAM_TO_GUEST": {
+    "name": "Add \"modules:devtools\" IAM to guest",
+    "defaultValue": true,
+    "scope": "devtools",
+    "schema": {
+      "type": "boolean"
+    }
+  },
+  "DISPLAY_VARIABLE": {
+    "name": "Display Env Vars",
+    "defaultValue": false,
+    "scope": "devtools",
+    "schema": {
+      "type": "boolean"
+    }
+  },
+  "DOC_ADD_EXCLUDED": {
+    "name": "Add excluded APIs",
+    "description": "Add excluded APIs to postman documentation",
+    "defaultValue": true,
+    "scope": "devtools",
+    "schema": {
+      "type": "boolean"
+    }
+  },
+  "NPM_DRY_RUN": {
+    "name": "Simulate NPM writing",
+    "defaultValue": false,
+    "scope": "devtools",
+    "schema": {
+      "type": "boolean"
+    }
+  },
+  "NPM_REGISTRY": {
+    "name": "NPM registry Url",
+    "defaultValue": "https://registry.npmjs.org/",
+    "scope": "devtools",
+    "schema": {
+      "type": "string"
+    }
+  },
+  "NPM_USERNAME": {
+    "name": "NPM Username",
+    "defaultValue": "",
+    "scope": "devtools",
+    "schema": {
+      "type": "string"
+    }
+  },
+  "NPM_PASSWORD": {
+    "name": "NPM Password",
+    "defaultValue": "",
+    "scope": "devtools",
+    "schema": {
+      "type": "string"
+    },
+    "field": {
+      "type": "password"
+    }
+  }
+}
