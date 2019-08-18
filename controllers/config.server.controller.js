@@ -45,7 +45,7 @@ exports.set = async function set(req, res) {
       remove,
       scope = 'general',
     } = item;
-    const field = env.variables.find(v => v.key === key && v.scope === scope);
+    const field = env.variables.find((v) => v.key === key && v.scope === scope);
     if (!field) {
       errors[key] = {
         exist: false,

@@ -124,7 +124,7 @@ describe('collection generator tests', () => {
       const collection = await agent.get(`${prefix}/devtools/postman/doc`).expect(200);
       expect(schemaValidator(collection.body)).to.be.true;
       const iam = findSubFolder(currentParentFolder, 'postman', collection.body.item);
-      iam.item.map(x => expect(x).to.be.an('object'));
+      iam.item.map((x) => expect(x).to.be.an('object'));
     });
     it('Each IAM\'s item object should contain a name', async () => {
       await createUser(credentials, ['modules:devtools:postman:doc:collections']);
@@ -135,7 +135,7 @@ describe('collection generator tests', () => {
       const collection = await agent.get(`${prefix}/devtools/postman/doc`).expect(200);
       expect(schemaValidator(collection.body)).to.be.true;
       const iam = findSubFolder(currentParentFolder, 'postman', collection.body.item);
-      expect(iam.item.map(x => x.name).length).to.be.equal(iam.item.length);
+      expect(iam.item.map((x) => x.name).length).to.be.equal(iam.item.length);
     });
     it('Each IAM\'s item object should contain an object request', async () => {
       await createUser(credentials, ['modules:devtools:postman:doc:collections']);
@@ -146,7 +146,7 @@ describe('collection generator tests', () => {
       const collection = await agent.get(`${prefix}/devtools/postman/doc`).expect(200);
       expect(schemaValidator(collection.body)).to.be.true;
       const iam = findSubFolder(currentParentFolder, 'postman', collection.body.item);
-      iam.item.map(x => expect(x.request).to.be.an('object'));
+      iam.item.map((x) => expect(x.request).to.be.an('object'));
     });
     it('Each IAM\'s item object should contain a method (Either a get, post, put, delete)', async () => {
       await createUser(credentials, ['modules:devtools:postman:doc:collections']);
@@ -157,7 +157,7 @@ describe('collection generator tests', () => {
       const collection = await agent.get(`${prefix}/devtools/postman/doc`).expect(200);
       expect(schemaValidator(collection.body)).to.be.true;
       const iam = findSubFolder(currentParentFolder, 'postman', collection.body.item);
-      iam.item.map(x => expect(x.request.method).to.satisfy((m) => {
+      iam.item.map((x) => expect(x.request.method).to.satisfy((m) => {
         if (m === 'GET' || m === 'PUT' || m === 'DELETE' || m === 'POST') {
           return true;
         }
@@ -173,7 +173,7 @@ describe('collection generator tests', () => {
       const collection = await agent.get(`${prefix}/devtools/postman/doc`).expect(200);
       expect(schemaValidator(collection.body)).to.be.true;
       const iam = findSubFolder(currentParentFolder, 'postman', collection.body.item);
-      iam.item.map(x => expect(x.request.url).to.be.an('object'));
+      iam.item.map((x) => expect(x.request.url).to.be.an('object'));
     });
     it('host\'s elements in url should only contain host and prefix elements', async () => {
       await createUser(credentials, [
@@ -188,7 +188,7 @@ describe('collection generator tests', () => {
       expect(schemaValidator(collection.body)).to.be.true;
       const iam = findSubFolder(currentParentFolder, 'postman', collection.body.item);
       iam.item.map(
-        x => expect(multiSearch(x.request.url.host[0], ['host', 'prefix'])).to.be.true,
+        (x) => expect(multiSearch(x.request.url.host[0], ['host', 'prefix'])).to.be.true,
       );
     });
     it('Path\'s elements in url shouldn\'t contain a "/"', async () => {
@@ -203,7 +203,7 @@ describe('collection generator tests', () => {
       const collection = await agent.get(`${prefix}/devtools/postman/doc`).expect(200);
       expect(schemaValidator(collection.body)).to.be.true;
       const iam = findSubFolder(currentParentFolder, 'postman', collection.body.item);
-      iam.item.map(x => x.request.url.path.forEach(p => expect(p).to.satisfy((pth) => {
+      iam.item.map((x) => x.request.url.path.forEach((p) => expect(p).to.satisfy((pth) => {
         if (pth.includes('/')) {
           return false;
         }

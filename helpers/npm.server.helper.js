@@ -33,7 +33,7 @@ const spawn$ = (...args) => new Promise((done, reject) => {
   cmd.on('close', () => done(result.trim()));
 });
 
-const request$ = options => new Promise((cb, reject) => request(
+const request$ = (options) => new Promise((cb, reject) => request(
   options,
   (error, response, body) => {
     if (error) {
@@ -201,7 +201,7 @@ exports.list = async (folder = resolve(), mode = 'prod') => {
  * Get downloads number of a specific module
  * @param {String} next The module name
  */
-exports.downloads = module => request$({
+exports.downloads = (module) => request$({
   url: `https://api.npmjs.org/downloads/point/last-week/${module}`,
   json: true,
 }).then(({ body }) => body);

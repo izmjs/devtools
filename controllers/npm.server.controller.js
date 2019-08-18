@@ -147,7 +147,7 @@ exports.installed = async function installed(req, res) {
   if (mode === 'fm') {
     const result = Object
       .keys(pkg.fmDependecies || {})
-      .map(one => ({
+      .map((one) => ({
         name: one,
         from: `${one}@${pkg.fmDependecies[one]}`,
         version: pkg.fmDependecies[one],

@@ -1,3 +1,5 @@
+/* eslint-disable max-classes-per-file */
+
 const { v4 } = require('uuid');
 const { EventEmitter } = require('events');
 const { spawn } = require('child_process');

@@ -1,3 +1,5 @@
+/* eslint-disable max-classes-per-file */
+
 const { request } = require('https');
 
 const defaults = {
@@ -50,7 +52,7 @@ function sendRequest(options, body) {
       },
     );
 
-    apiReq.on('error', e => resolve(e));
+    apiReq.on('error', (e) => resolve(e));
 
     if (body) {
       apiReq.write(JSON.stringify(body));

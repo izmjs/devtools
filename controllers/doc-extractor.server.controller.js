@@ -18,7 +18,7 @@ exports.extract = async (file, regex, relativeTo = resolve()) => {
   const built = await doc.build(file, { shallow: true });
 
   // Extract the controllers from the file
-  const found = built.filter(el => el.tags.find(t => t.title === 'controller'));
+  const found = built.filter((el) => el.tags.find((t) => t.title === 'controller'));
 
   // Convert found controllers to a more readable format
   const list = found.map((item) => {
@@ -26,7 +26,7 @@ exports.extract = async (file, regex, relativeTo = resolve()) => {
     // Extract the type, the name and the description
     const obj = {
       title: item.name,
-      type: item.tags.find(p => p.title === 'controller').title,
+      type: item.tags.find((p) => p.title === 'controller').title,
       description: item.description.children[0].children[0].value,
     };
 
@@ -36,13 +36,13 @@ exports.extract = async (file, regex, relativeTo = resolve()) => {
     }
 
     // Extract the controller title
-    const ctrl = item.tags.find(p => p.title === 'controller');
+    const ctrl = item.tags.find((p) => p.title === 'controller');
     obj.name = ctrl.description || item.name;
 
     // Extract the parameters
     obj.params = item.tags
-      .filter(t => t.title !== 'controller')
-      .map(t => ({
+      .filter((t) => t.title !== 'controller')
+      .map((t) => ({
         name: t.name,
         description: t.description,
         type: t.type.name,

@@ -20,7 +20,7 @@ const access$ = promisify(access);
 exports.processTree = async function processTree(req, res, next) {
   const list = await find$('name', 'node');
   const tree = [];
-  let current = list.find(one => one.pid === process.pid);
+  let current = list.find((one) => one.pid === process.pid);
 
   function isPpid(one) {
     return one.pid === current.ppid;
@@ -59,7 +59,7 @@ exports.processTreeResult = async function processTreeResult(req, res) {
  */
 exports.restart = async function restart(req, res) {
   const { tree } = req.data;
-  const nodemon = tree.find(one => one.cmd.includes('nodemon'));
+  const nodemon = tree.find((one) => one.cmd.includes('nodemon'));
 
   if (!nodemon) {
     return res.status(400).json({

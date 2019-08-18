@@ -160,7 +160,7 @@ exports.variables = async function variables(req, res) {
     id: v4(),
     name: 'api',
     _postman_variable_scope: 'environment',
-    values: variable.map(v => ({
+    values: variable.map((v) => ({
       key: v.key,
       value: v.value,
       enabled: true,

@@ -49,14 +49,14 @@ function normalizeObjArray(obj) {
     return obj;
   }
 
-  return Object.keys(obj || {}).map(attr => ({
+  return Object.keys(obj || {}).map((attr) => ({
     key: attr,
     value: obj[attr],
   }));
 }
 
 function addToVariables(variable, list) {
-  const found = list.find(item => item.key === variable.key);
+  const found = list.find((item) => item.key === variable.key);
 
   if (found) {
     return list;
@@ -80,7 +80,7 @@ const tagsManifest = [
         json[attr].body = JSON.stringify(body, null, '  ') || '';
         json[attr].headers = normalizeObjArray(headers);
 
-        if (!json[attr].headers.find(h => h.key.toLowerCase() === 'content-type')) {
+        if (!json[attr].headers.find((h) => h.key.toLowerCase() === 'content-type')) {
           json[attr].headers.push({
             key: 'Content-Type',
             value: 'application/json',
@@ -168,7 +168,7 @@ exports.description = async (obj) => {
     };
   });
   // parents
-  parents = parents.map(async p => ({ ref: p }));
+  parents = parents.map(async (p) => ({ ref: p }));
   parents = await Promise.all(parents);
 
   return render(resolve(__dirname, '../views/request-description.server.view.swig'), {
@@ -190,12 +190,12 @@ exports.methods = ({ body = [] }) => {
 
   const routesProperty = body
     // Filter expression statments only
-    .filter(item => item.type === 'ExpressionStatement')
+    .filter((item) => item.type === 'ExpressionStatement')
     // Map on right properties
-    .map(item => item.expression.right.properties)
+    .map((item) => item.expression.right.properties)
     .filter(Boolean)
     // Find "routes" property
-    .find(properties => properties.find(p => p.key.name === 'routes'));
+    .find((properties) => properties.find((p) => p.key.name === 'routes'));
 
   if (!routesProperty) {
     return [];
@@ -204,22 +204,22 @@ exports.methods = ({ body = [] }) => {
   return (
     routesProperty
       // Select routes
-      .find(p => p.key.name === 'routes')
+      .find((p) => p.key.name === 'routes')
       .value.elements // Get object expressions only
-      .filter(el => el.type === 'ObjectExpression')
+      .filter((el) => el.type === 'ObjectExpression')
       // Map on the properties and ignore the rest
-      .map(el => el.properties)
+      .map((el) => el.properties)
       // Select "methods" attribute
-      .map(properties => properties.find(p => p.key.name === 'methods'))
+      .map((properties) => properties.find((p) => p.key.name === 'methods'))
       // Ignore other properties
       .filter(Boolean)
       // Select the properties
-      .map(p => p.value.properties
-        .map(item => ({
+      .map((p) => p.value.properties
+        .map((item) => ({
           method: item.key.name,
           location: item.key.loc.start.line,
         }))
-        .filter(item => HTTP_METHODS.includes(item.method)))
+        .filter((item) => HTTP_METHODS.includes(item.method)))
       // Flatten the result
       .flat()
   );
@@ -266,7 +266,7 @@ exports.comments = ({ comments = [] }, file, doc) => {
   // doc of the method required
   return (
     comments
-      .filter(c => c.type === 'Block')
+      .filter((c) => c.type === 'Block')
       .map((c) => {
         // Extract variables
         const regex = /{{(\w*)}}/gm;
@@ -292,7 +292,7 @@ exports.comments = ({ comments = [] }, file, doc) => {
         // Construct the data object
         const data = tags.reduce((previous, { title, description }) => {
           const result = previous;
-          const meta = tagsManifest.find(one => one.tag === title);
+          const meta = tagsManifest.find((one) => one.tag === title);
 
           if (!meta) {
             result[title] = previous[title] || [];
@@ -343,7 +343,7 @@ Location: ${file}:${c.loc.end.line}
         };
       })
       // return only blocks that contains at least one tag
-      .filter(obj => Object.keys(obj.tags).length > 0)
+      .filter((obj) => Object.keys(obj.tags).length > 0)
   );
 };
 
@@ -447,7 +447,7 @@ exports.extractRoutes = async (filePath, doc) => {
   let list = routes.map(async (r) => {
     const { path, methods = {} } = r;
     let methodsArr = Object.keys(methods)
-      .filter(method => HTTP_METHODS.includes(method))
+      .filter((method) => HTTP_METHODS.includes(method))
       .map(async (method) => {
         const result = await exports.extract(
           `${routePrefix}${path}`,
@@ -486,12 +486,12 @@ File: ${filePath}
   }
 
   return requests
-    .filter(req => devtools.addExcluded || !req.excluded)
+    .filter((req) => devtools.addExcluded || !req.excluded)
     .map((req, index) => {
       const obj = req;
       const { request } = obj;
       const method = methods[index];
-      const comment = comments.find(c => c.location === method.location - 1);
+      const comment = comments.find((c) => c.location === method.location - 1);
 
       delete obj.excluded;
 
@@ -522,7 +522,7 @@ File: ${filePath}
       // Set the headers
       request.headers = tags.headers || [];
       if (['POST', 'PUT'].includes(request.method)) {
-        const found = request.headers.find(h => h.key.toLowerCase() === 'content-type');
+        const found = request.headers.find((h) => h.key.toLowerCase() === 'content-type');
         if (!found) {
           request.headers.push({
             key: 'Content-Type',
@@ -663,7 +663,7 @@ exports.items = async function getItems(req, res, next) {
     type, module, name, requestsComments,
   }) => {
     // Find the "type" item, add it to the result if does not exist
-    let typeItem = arr.find(one => one.name === type);
+    let typeItem = arr.find((one) => one.name === type);
 
     if (!typeItem) {
       typeItem = { name: type, item: [] };
@@ -671,7 +671,7 @@ exports.items = async function getItems(req, res, next) {
     }
 
     // Find the "module" item inside the "type" folder, add it if does not exist
-    let moduleItem = typeItem.item.find(one => one.name === module);
+    let moduleItem = typeItem.item.find((one) => one.name === module);
 
     if (!moduleItem) {
       moduleItem = { name: module, item: [] };

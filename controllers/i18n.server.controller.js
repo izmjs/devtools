@@ -34,8 +34,8 @@ exports.list = async function list(req, res) {
   // Loop over supported languages to find the files
   // Then create an array of promises
   let all = SUPPORTED_LANGUAGES
-    .map(lng => read$(lng, ns))
-    .map(p$ => p$.catch(() => Promise.resolve(false)));
+    .map((lng) => read$(lng, ns))
+    .map((p$) => p$.catch(() => Promise.resolve(false)));
 
   // Resolve all promises at once
   all = await Promise.all(all);
@@ -43,7 +43,7 @@ exports.list = async function list(req, res) {
   all = all
     .map((obj, index) => {
       if (!obj) return false;
-      Object.keys(obj).forEach(k => keys.add(k));
+      Object.keys(obj).forEach((k) => keys.add(k));
       const key = SUPPORTED_LANGUAGES[index];
       return {
         key,
@@ -54,7 +54,7 @@ exports.list = async function list(req, res) {
     .filter(Boolean);
 
   // Create the languages array
-  const lngs = all.map(lng => ({
+  const lngs = all.map((lng) => ({
     key: lng.key,
     label: lng.name,
     name: lng.nativeName,
@@ -64,7 +64,7 @@ exports.list = async function list(req, res) {
   const entries = all.reduce((prevValue, curValue) => {
     const { key, entries: entriesList } = curValue;
     Object.keys(entriesList).forEach((entryKey) => {
-      let found = prevValue.find(one => one.key === entryKey);
+      let found = prevValue.find((one) => one.key === entryKey);
 
       if (!found) {
         found = {
@@ -131,10 +131,10 @@ exports.edit = async function edit(req, res) {
   // Sanitize received body, eliminated unsupported languages
   // Then fill the cache
   entries
-    .filter(one => typeof one === 'object' && one && one.key && typeof one.key === 'string')
+    .filter((one) => typeof one === 'object' && one && one.key && typeof one.key === 'string')
     .forEach((one) => {
       const lngs = Object.keys(one).filter(
-        key => key !== 'key' && typeof one[key] === 'string' && SUPPORTED_LANGUAGES.includes(key),
+        (key) => key !== 'key' && typeof one[key] === 'string' && SUPPORTED_LANGUAGES.includes(key),
       );
 
       if (lngs.length === 0) {
@@ -212,7 +212,7 @@ exports.remove = async function remove(req, res) {
   const { ns } = req.query;
   const { backend } = req.i18n.options;
 
-  body = (Array.isArray(body) ? body : []).filter(key => key && typeof key === 'string');
+  body = (Array.isArray(body) ? body : []).filter((key) => key && typeof key === 'string');
 
   if (body.length === 0) {
     return res.status(400).json({
@@ -344,8 +344,8 @@ exports.translate = async function translateI18NFile(req, res) {
   const jsonToKeys = Object.keys(jsonTo);
 
   let list$ = jsonFromKeys
-    .filter(k => !jsonToKeys.includes(k))
-    .filter(k => Boolean(jsonFrom[k]))
+    .filter((k) => !jsonToKeys.includes(k))
+    .filter((k) => Boolean(jsonFrom[k]))
     .map(async (k) => {
       if (!key) {
         return {
@@ -370,7 +370,7 @@ exports.translate = async function translateI18NFile(req, res) {
     });
 
   list$ = await Promise.all(list$);
-  list$.filter(one => !!one).forEach(({ key: k, value }) => {
+  list$.filter((one) => !!one).forEach(({ key: k, value }) => {
     jsonTo[k] = value;
   });
 

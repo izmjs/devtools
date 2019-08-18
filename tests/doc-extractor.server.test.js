@@ -71,7 +71,7 @@ describe('Controllers extrator tests', () => {
           ns: `modules:${moduleName}`,
         })
         .expect(200);
-      const ctrl = body.find(c => c.name === 'assets');
+      const ctrl = body.find((c) => c.name === 'assets');
       expect([ctrl.type, ctrl.loaded, ctrl.children.length]).to.eql(['folder', false, 0]);
     });
   });
@@ -90,7 +90,7 @@ describe('Controllers extrator tests', () => {
         })
         .expect(200);
       expect(body).to.be.an('array');
-      const ctrl = body.find(c => c.name === 'assets');
+      const ctrl = body.find((c) => c.name === 'assets');
       expect([ctrl.type, ctrl.loaded]).to.eql(['folder', true]);
       expect(ctrl.children.length).to.not.eql(0);
       ctrl.children.forEach((element) => {
@@ -111,7 +111,7 @@ describe('Controllers extrator tests', () => {
         })
         .expect(200);
       expect(body).to.be.an('array');
-      const ctrl = body.find(c => c.name === 'assets');
+      const ctrl = body.find((c) => c.name === 'assets');
       expect([ctrl.type, ctrl.loaded, ctrl.children.length]).to.eql(['folder', false, 0]);
     });
 
@@ -128,8 +128,8 @@ describe('Controllers extrator tests', () => {
         })
         .expect(200);
       expect(body).to.be.an('array');
-      const ctrl = body.find(c => c.name === 'assets');
-      const assets = ctrl.children.find(c => c.name === 'testFolder');
+      const ctrl = body.find((c) => c.name === 'assets');
+      const assets = ctrl.children.find((c) => c.name === 'testFolder');
       expect([assets.type, assets.loaded, assets.children.length]).to.eql(['folder', false, 0]);
     });
 
@@ -146,9 +146,9 @@ describe('Controllers extrator tests', () => {
         })
         .expect(200);
       expect(body).to.be.an('array');
-      const ctrl = body.find(c => c.name === 'assets');
-      const assets = ctrl.children.find(c => c.name === 'testFolder');
-      const isEmpty = assets.children.find(c => c.name === 'file.js');
+      const ctrl = body.find((c) => c.name === 'assets');
+      const assets = ctrl.children.find((c) => c.name === 'testFolder');
+      const isEmpty = assets.children.find((c) => c.name === 'file.js');
       expect([isEmpty.name, isEmpty.type, isEmpty.loaded, isEmpty.children.length]).to.eql([
         'file.js',
         'file',
@@ -170,14 +170,14 @@ describe('Controllers extrator tests', () => {
         })
         .expect(200);
       expect(body).to.be.an('array');
-      const assets = body.find(c => c.name === 'assets');
-      const oneController = assets.children.find(c => c.name === 'oneController.js');
-      const childrenController = oneController.children.find(c => c.title === 'ok1');
+      const assets = body.find((c) => c.name === 'assets');
+      const oneController = assets.children.find((c) => c.name === 'oneController.js');
+      const childrenController = oneController.children.find((c) => c.title === 'ok1');
       expect('controller').to.equal(childrenController.type);
       expect(childrenController.params.length).to.equal(3);
-      const prms1 = childrenController.params.find(c => c.name === 'req');
-      const prms2 = childrenController.params.find(c => c.name === 'res');
-      const prms3 = childrenController.params.find(c => c.name === 'next');
+      const prms1 = childrenController.params.find((c) => c.name === 'req');
+      const prms2 = childrenController.params.find((c) => c.name === 'res');
+      const prms3 = childrenController.params.find((c) => c.name === 'next');
       childrenController.params.forEach((e) => {
         expect(Object.keys(e)).to.eql(['name', 'description', 'type']); // passes
       });
@@ -227,7 +227,7 @@ describe('Controllers extrator tests', () => {
         })
         .expect(200);
       expect(body).to.be.an('array');
-      const oneControllerContent = body.find(c => c.name === 'Check results');
+      const oneControllerContent = body.find((c) => c.name === 'Check results');
       const param = oneControllerContent.params;
       expect([
         oneControllerContent.title,
@@ -265,9 +265,9 @@ describe('Controllers extrator tests', () => {
         })
         .expect(200);
       expect(body).to.be.an('array');
-      const isEmpty = body.find(c => c.name === 'isEmpty.js');
-      const oneController = body.find(c => c.name === 'oneController.js');
-      const folder = body.find(c => c.name === 'testFolder');
+      const isEmpty = body.find((c) => c.name === 'isEmpty.js');
+      const oneController = body.find((c) => c.name === 'oneController.js');
+      const folder = body.find((c) => c.name === 'testFolder');
       // expect(rootFolder).to.not.be.undefined;
       expect([isEmpty.name, isEmpty.type, isEmpty.loaded, isEmpty.children.length]).to.eql([
         'isEmpty.js',
@@ -304,9 +304,9 @@ describe('Controllers extrator tests', () => {
         })
         .expect(200);
       expect(body).to.be.an('array');
-      const isEmpty = body.find(c => c.name === 'isEmpty.js');
-      const oneController = body.find(c => c.name === 'oneController.js');
-      const folder = body.find(c => c.name === 'testFolder');
+      const isEmpty = body.find((c) => c.name === 'isEmpty.js');
+      const oneController = body.find((c) => c.name === 'oneController.js');
+      const folder = body.find((c) => c.name === 'testFolder');
       expect([isEmpty.name, isEmpty.type, isEmpty.loaded, isEmpty.children.length]).to.eql([
         'isEmpty.js',
         'file',
