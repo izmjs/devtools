@@ -4,6 +4,7 @@ const { promisify } = require('util');
 const docCtrls = require('./postman-doc.server.controller');
 
 const {
+  app,
   devtools,
   // eslint-disable-next-line import/no-dynamic-require
 } = require(resolve('config'));
@@ -167,7 +168,7 @@ exports.variables = async function variables(req, res) {
 
   const json = {
     id: v4(),
-    name: 'api',
+    name: `[${(process.env.NODE_ENV || 'development').toUpperCase()}] ${app.title || 'api'}`,
     _postman_variable_scope: 'environment',
     values: variable.map((v) => ({
       key: v.key,
