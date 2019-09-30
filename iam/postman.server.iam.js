@@ -98,6 +98,14 @@ module.exports = {
     {
       path: '/environment',
       methods: {
+        /**
+         * @params
+         * [{
+         *   "key": "download",
+         *   "value": "false",
+         *   "description": "Download the env vars instead of return them"
+         * }]
+         */
         get: {
           parents: ['modules:postman', 'modules:devtools'],
           iam: 'modules:devtools:postman:doc:environment',

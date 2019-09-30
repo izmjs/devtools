@@ -156,13 +156,22 @@ exports.variables = async function variables(req, res) {
   const { variable = [] } = collection;
   const { download = false } = query;
 
+  let defaults = {};
+
+  try {
+    // eslint-disable-next-line
+    defaults = require(resolve('.env/.defaults.json'));
+  } catch (e) {
+    // Do nothing
+  }
+
   const json = {
     id: v4(),
     name: 'api',
     _postman_variable_scope: 'environment',
     values: variable.map((v) => ({
       key: v.key,
-      value: v.value,
+      value: v.value || defaults[v.key] || '',
       enabled: true,
       description: {
         content: '',
