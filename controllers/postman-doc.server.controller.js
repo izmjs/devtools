@@ -495,6 +495,20 @@ File: ${filePath}
 
       delete obj.excluded;
 
+      if (typeof filesProvider[repoType] === 'function') {
+        let { description } = req.request;
+
+        description = description
+          .replace(/^\*\*IAM\*\*: `(.*)`/m, `**IAM**: [\`$1\`](${
+            filesProvider[repoType](repoLink, {
+              source: filePath,
+              line: method.location,
+            })
+          })`);
+
+        req.request.description = description;
+      }
+
       if (!comment) {
         return obj;
       }
