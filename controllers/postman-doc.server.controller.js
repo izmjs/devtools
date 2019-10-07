@@ -557,6 +557,18 @@ File: ${filePath}
         });
       }
 
+      // set prerequests
+      if (tags.prerequest) {
+        obj.event.push({
+          listen: 'prerequest',
+          script: {
+            id: uuid.v4(),
+            exec: tags.prerequest,
+            type: 'text/javascript',
+          },
+        });
+      }
+
       // Set query params
       if (tags.params) {
         request.url.query = tags.params;
