@@ -10,7 +10,7 @@
     "scope": "devtools",
     "schema": {
       "type": "string",
-      "enum": ["local", "gitlab"]
+      "enum": ["local", "gitlab", "github", "bitbucket"]
     }
   },
   "POSTMAN_KEY": {

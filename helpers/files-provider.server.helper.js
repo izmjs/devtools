@@ -10,6 +10,28 @@ exports.gitlab = (url = '', location) => {
 };
 
 /**
+ * Github file provider
+ * @param {String} url The base URL
+ * @param {Object} location Contains the location of the file (reference, line and column)
+ * @returns {String} Formatted URL
+ */
+exports.github = (url = '', location) => {
+  const { source, line = 1 } = location;
+  return `${url}/${source}#L${line}`;
+};
+
+/**
+ * Bitbucket file provider
+ * @param {String} url The base URL
+ * @param {Object} location Contains the location of the file (reference, line and column)
+ * @returns {String} Formatted URL
+ */
+exports.bitbucket = (url = '', location) => {
+  const { source, line = 1 } = location;
+  return `${url}/${source}#lines-${line}`;
+};
+
+/**
  * Local file provider
  * @param {String} url The base URL
  * @param {Object} location Contains the location of the file (reference, line and column)
