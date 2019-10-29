@@ -52,7 +52,7 @@
     "documentation": "^12.1.2",
     "esprima": "^4.0.1",
     "find-process": "^1.4.2",
-    "func-loc": "^0.1.6",
+    "func-loc": "^0.1.7",
     "libnpmpublish": "^2.0.0",
     "libnpmsearch": "^2.0.2",
     "react-dev-utils": "^9.1.0",
@@ -63,7 +63,7 @@
   "devDependencies": {
     "@commitlint/cli": "^8.2.0",
     "@commitlint/config-conventional": "^8.2.0",
-    "eslint": "^6.5.1",
+    "eslint": "^6.6.0",
     "eslint-config-airbnb-base": "^14.0.0",
     "eslint-plugin-import": "^2.18.2",
     "husky": "^3.0.9",
