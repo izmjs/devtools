@@ -49,9 +49,9 @@
   "license": "MIT",
   "dependencies": {
     "doctrine": "^3.0.0",
-    "documentation": "^12.1.3",
+    "documentation": "^12.1.4",
     "esprima": "^4.0.1",
-    "find-process": "^1.4.2",
+    "find-process": "^1.4.3",
     "func-loc": "^0.1.11",
     "libnpmpublish": "^2.0.0",
     "libnpmsearch": "^2.0.2",
