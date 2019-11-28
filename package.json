@@ -52,7 +52,7 @@
     "documentation": "^12.1.4",
     "esprima": "^4.0.1",
     "find-process": "^1.4.3",
-    "func-loc": "^0.1.11",
+    "func-loc": "^0.1.12",
     "libnpmpublish": "^2.0.0",
     "libnpmsearch": "^2.0.2",
     "react-dev-utils": "^9.1.0",
