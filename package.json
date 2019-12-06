@@ -55,7 +55,7 @@
     "func-loc": "^0.1.12",
     "libnpmpublish": "^2.0.0",
     "libnpmsearch": "^2.0.2",
-    "react-dev-utils": "^9.1.0",
+    "react-dev-utils": "^10.0.0",
     "tar": "^5.0.5",
     "translate": "^1.1.0",
     "uuid": "^3.3.3"
