@@ -4,6 +4,7 @@ const { readFile } = require('fs');
 const { promisify } = require('util');
 const { resolve } = require('path');
 const { renderString } = require('nunjucks');
+const debug = require('debug')('modules:devtools');
 
 const readFile$ = promisify(readFile);
 const SQUARE_LENGTH = 94;
@@ -27,9 +28,9 @@ module.exports = async (config) => {
 
   const url = `http${config.secure && config.secure.ssl ? 's' : ''}://${config.host}:${config.port}`;
 
-  console.log(renderString(txt, {
+  renderString(txt, {
     message: `  |${center(`URL: ${url}/devtools`)}|
   |${center(`Postman doc: ${url}/api/v1/devtools/postman/doc`)}|
   |${center(`Postman variables: ${url}/api/v1/devtools/postman/environment`)}|`,
-  }));
+  }).split('\n').forEach((one) => debug(one));
 };
