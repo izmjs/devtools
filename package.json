@@ -57,16 +57,16 @@
     "libnpmsearch": "^2.0.2",
     "react-dev-utils": "^10.0.0",
     "tar": "^5.0.5",
-    "translate": "^1.1.0",
+    "translate": "^1.1.1",
     "uuid": "^3.3.3"
   },
   "devDependencies": {
-    "@commitlint/cli": "^8.3.3",
-    "@commitlint/config-conventional": "^8.3.3",
+    "@commitlint/cli": "^8.3.4",
+    "@commitlint/config-conventional": "^8.3.4",
     "eslint": "^6.8.0",
     "eslint-config-airbnb-base": "^14.0.0",
-    "eslint-plugin-import": "^2.19.1",
-    "husky": "^3.1.0",
+    "eslint-plugin-import": "^2.20.0",
+    "husky": "^4.0.7",
     "lint-staged": "^9.5.0",
     "prettier": "^1.19.1",
     "release-it": "^12.4.3"
