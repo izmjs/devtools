@@ -55,8 +55,8 @@
     "func-loc": "^0.1.12",
     "libnpmpublish": "^2.0.0",
     "libnpmsearch": "^2.0.2",
-    "react-dev-utils": "^10.0.0",
-    "tar": "^5.0.5",
+    "react-dev-utils": "^10.2.0",
+    "tar": "^6.0.1",
     "translate": "^1.1.1",
     "uuid": "^3.4.0"
   },
@@ -65,9 +65,9 @@
     "@commitlint/config-conventional": "^8.3.4",
     "eslint": "^6.8.0",
     "eslint-config-airbnb-base": "^14.0.0",
-    "eslint-plugin-import": "^2.20.0",
-    "husky": "^4.0.10",
-    "lint-staged": "^9.5.0",
+    "eslint-plugin-import": "^2.20.1",
+    "husky": "^4.2.3",
+    "lint-staged": "^10.0.7",
     "prettier": "^1.19.1",
     "release-it": "^12.4.3"
   },
