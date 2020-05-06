@@ -241,6 +241,6 @@ describe('collection generator tests', () => {
     });
   });
   afterEach(async () => {
-    await Promise.all([User.remove()]);
+    await Promise.all([User.deleteMany({})]);
   });
 });

@@ -46,7 +46,10 @@ exports.downloadJSON = function downloadJSON(res, json, ext = '.postman_collecti
 
 function normalizeObjArray(obj) {
   if (Array.isArray(obj)) {
-    return obj;
+    return obj.map((one) => Object.keys(one).reduce((prev, cur) => ({
+      ...prev,
+      [cur]: `${one[cur]}`,
+    }), {}));
   }
 
   return Object.keys(obj || {}).map((attr) => ({

@@ -329,6 +329,6 @@ describe('Controllers extrator tests', () => {
   });
 
   afterEach(async () => {
-    await Promise.all([User.remove()]);
+    await Promise.all([User.deleteMany({})]);
   });
 });
