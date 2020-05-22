@@ -45,7 +45,12 @@ exports.set = async function set(req, res) {
       remove,
       scope = 'general',
     } = item;
-    const field = env.variables.find((v) => v.key === key && v.scope === scope);
+    const field = env.variables.find((v) => v.key === key
+      && (
+        v.scope === scope
+        || v.group === scope
+      ),
+    );
     if (!field) {
       errors[key] = {
         exist: false,
@@ -74,9 +79,7 @@ exports.set = async function set(req, res) {
   });
   const saved = await env.save();
   if (saved) {
-    return res.json({
-      message: req.t('CONFIG_SET_SAVED_SUCCESSFULLY'),
-    });
+    return res.json(env.toJSON());
   }
 
   return res.json({

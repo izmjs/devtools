@@ -12,7 +12,7 @@ const {
 } = require('mocha');
 
 const express = require(resolve('./config/lib/express'));
-const { prefix } = require(resolve('config'));
+const { prefix } = require(resolve('config')).app;
 
 const User = mongoose.model('User');
 const moduleName = basename(resolve(__dirname, '..'));

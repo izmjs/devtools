@@ -23,9 +23,9 @@ const {
   app,
   files,
   devtools,
-  prefix,
   // eslint-disable-next-line import/no-dynamic-require
 } = require(resolve('config'));
+const { prefix } = app;
 // eslint-disable-next-line import/no-unresolved
 const { getBaseURLFromRequest } = require('utils');
 
@@ -46,10 +46,7 @@ exports.downloadJSON = function downloadJSON(res, json, ext = '.postman_collecti
 
 function normalizeObjArray(obj) {
   if (Array.isArray(obj)) {
-    return obj.map((one) => Object.keys(one).reduce((prev, cur) => ({
-      ...prev,
-      [cur]: `${one[cur]}`,
-    }), {}));
+    return obj;
   }
 
   return Object.keys(obj || {}).map((attr) => ({
@@ -176,10 +173,10 @@ exports.description = async (obj) => {
 
   return render(resolve(__dirname, '../views/request-description.server.view.swig'), {
     iam,
-    description,
-    middlewares,
     parents,
     exclude,
+    description,
+    middlewares,
   });
 };
 

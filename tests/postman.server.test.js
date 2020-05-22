@@ -20,7 +20,7 @@ const schema = require('../schemas/collection.server.schema.json');
 const schemaValidator = ajv.compile(schema);
 
 const express = require(resolve('./config/lib/express'));
-const { prefix } = require(resolve('config'));
+const { prefix } = require(resolve('config')).app;
 
 let app;
 let agent;

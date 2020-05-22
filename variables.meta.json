@@ -1,7 +1,6 @@
 {
   "FILES_URL": {
     "name": "Files URL",
-    "defaultValue": "http://localhost:3000/api/v1/devtools/files/open",
     "scope": "devtools"
   },
   "FILES_TYPE": {

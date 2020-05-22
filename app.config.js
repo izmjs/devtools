@@ -2,10 +2,11 @@ const SCOPE = 'devtools';
 
 module.exports = (config) => {
   const { env } = config.utils;
+  const { publicAddress } = config.app;
   return {
     devtools: {
       repository: {
-        link: env.get('FILES_URL', SCOPE),
+        link: env.get('FILES_URL', SCOPE) || `${publicAddress}/api/v1/devtools/files/open`,
         type: env.get('FILES_TYPE', SCOPE),
       },
       postman: {

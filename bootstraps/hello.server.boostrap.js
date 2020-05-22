@@ -21,16 +21,18 @@ module.exports = async (config) => {
     return;
   }
 
+  const { app } = config;
+
   const txt = await readFile$(resolve(__dirname, '../assets/hello.server.asset.txt'), {
     encoding: 'utf8',
   });
 
 
-  const url = `http${config.secure && config.secure.ssl ? 's' : ''}://${config.host}:${config.port}`;
+  const url = `http${app.secure.ssl ? 's' : ''}://${app.host}:${app.port}`;
 
   renderString(txt, {
     message: `  |${center(`URL: ${url}/devtools`)}|
-  |${center(`Postman doc: ${url}/api/v1/devtools/postman/doc`)}|
-  |${center(`Postman variables: ${url}/api/v1/devtools/postman/environment`)}|`,
+  |${center(`Postman doc: ${url}${app.prefix}/devtools/postman/doc`)}|
+  |${center(`Postman variables: ${url}${app.prefix}/devtools/postman/environment`)}|`,
   }).split('\n').forEach((one) => debug(one));
 };
