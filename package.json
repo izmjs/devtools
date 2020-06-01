@@ -2,16 +2,6 @@
   "name": "devtools-fm",
   "version": "2.2.0",
   "description": "The devtools module",
-  "scripts": {
-    "test": "node ../../scripts/run-tests",
-    "lint": "eslint .",
-    "pretest": "npm run lint",
-    "format:write": "prettier **/*.{json,md} --write",
-    "format:test": "prettier **/*.{json,md} --list-different",
-    "release:major": "release-it major",
-    "release:minor": "release-it minor",
-    "release:patch": "release-it patch"
-  },
   "links": {
     "repository": "https://gitlab.com/ps-ide/fm/devtools",
     "bugs": "https://gitlab.com/ps-ide/fm/devtools/issues",
@@ -49,7 +39,7 @@
   "license": "MIT",
   "dependencies": {
     "doctrine": "^3.0.0",
-    "documentation": "^12.3.0",
+    "documentation": "^13.0.0",
     "esprima": "^4.0.1",
     "find-process": "^1.4.3",
     "func-loc": "^0.1.12",
@@ -58,38 +48,9 @@
     "react-dev-utils": "^10.2.1",
     "tar": "^6.0.2",
     "translate": "^1.1.2",
-    "uuid": "^8.0.0"
-  },
-  "devDependencies": {
-    "@commitlint/cli": "^8.3.5",
-    "@commitlint/config-conventional": "^8.3.4",
-    "eslint": "^6.8.0",
-    "eslint-config-airbnb-base": "^14.1.0",
-    "eslint-plugin-import": "^2.20.2",
-    "husky": "^4.2.5",
-    "lint-staged": "^10.2.2",
-    "prettier": "^2.0.5",
-    "release-it": "^13.5.8"
+    "uuid": "^8.1.0"
   },
   "optionalDependencies": {
-    "acorn": "^7.1.1"
-  },
-  "commitlint": {
-    "extends": [
-      "@commitlint/config-conventional"
-    ]
-  },
-  "lint-staged": {
-    "**/*.{json,md}": [
-      "prettier --write",
-      "git add"
-    ]
-  },
-  "husky": {
-    "hooks": {
-      "post-merge": "npm i",
-      "pre-commit": "lint-staged && npm test",
-      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
-    }
+    "acorn": "^7.2.0"
   }
 }
