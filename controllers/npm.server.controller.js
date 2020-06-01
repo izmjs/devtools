@@ -10,8 +10,7 @@ const {
 const tar = require('tar');
 const { publish: publish$ } = require('libnpmpublish');
 
-// eslint-disable-next-line import/no-dynamic-require
-const config = require(resolve('config'));
+const config = require('@config/index');
 const npmHelper = require('../helpers/npm.server.helper');
 
 const { npm: npmConfig } = config.devtools;

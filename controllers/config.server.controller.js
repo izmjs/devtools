@@ -1,7 +1,4 @@
-const { resolve } = require('path');
-
-// eslint-disable-next-line import/no-dynamic-require
-const { env } = require(resolve('config')).utils;
+const { env } = require('@config/index').utils;
 
 /**
  * List config fields

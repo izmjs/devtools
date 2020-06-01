@@ -7,8 +7,7 @@ const esprima = require('esprima');
 const { readFile, writeFile } = require('fs');
 const { promisify } = require('util');
 const doctrine = require('doctrine');
-// eslint-disable-next-line import/no-unresolved
-const { isExcluded } = require('utils');
+const { isExcluded } = require('@helpers/utils');
 
 let postmanVariables;
 

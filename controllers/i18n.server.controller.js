@@ -1,13 +1,11 @@
 const { promisify } = require('util');
-const { resolve } = require('path');
 const { writeFile, readFile, unlink } = require('fs');
 const translate = require('translate');
 
 const writeFile$ = promisify(writeFile);
 const readFile$ = promisify(readFile);
 const unlink$ = promisify(unlink);
-// eslint-disable-next-line import/no-dynamic-require
-const { translate: config } = require(resolve('config')).devtools;
+const { translate: config } = require('@config/index').devtools;
 
 const LANGUAGES_NAMES = require('../helpers/lng-names.server.helper');
 // Support 10 Most Spoken Languages In The World

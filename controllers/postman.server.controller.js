@@ -1,13 +1,12 @@
 const { v4 } = require('uuid');
 const { resolve } = require('path');
 const { promisify } = require('util');
-const docCtrls = require('./postman-doc.server.controller');
-
 const {
   app,
   devtools,
-  // eslint-disable-next-line import/no-dynamic-require
-} = require(resolve('config'));
+} = require('@config/index');
+
+const docCtrls = require('./postman-doc.server.controller');
 
 const { Collection } = require('../helpers/postman.server.helper');
 
