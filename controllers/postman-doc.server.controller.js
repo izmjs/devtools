@@ -115,6 +115,22 @@ const tagsManifest = [
     isOne: true,
   },
   {
+    tag: 'json',
+    isOne: true,
+  },
+  {
+    tag: 'urlencoded',
+    isOne: true,
+  },
+  {
+    tag: 'formdata',
+    isOne: true,
+  },
+  {
+    tag: 'bodyMode',
+    isOne: true,
+  },
+  {
     tag: 'test',
     isOne: true,
   },
@@ -385,13 +401,15 @@ exports.cache = async function cache(req, res, next) {
  */
 exports.extract = async (path, method, obj, doc, parent) => {
   const { title: name = 'Not specified' } = obj;
+  const regex = /^:(\w*)(\(.*\))?/;
 
   const pathItems = path
     .split('/')
     .filter((p, index, arr) => (index < arr.length - 1 ? Boolean(p) : true))
     .map((p) => {
-      if (p.startsWith(':')) {
-        const varName = p.replace(/^:/, '');
+      const exec = regex.exec(p);
+      if (exec) {
+        const [,varName] = exec;
 
         addToVariables(
           {
@@ -421,7 +439,7 @@ exports.extract = async (path, method, obj, doc, parent) => {
         raw: method === 'GET' ? '' : '{}',
       },
       url: {
-        host: [`{{host}}${m.is_global ? '': '{{prefix}}'}`],
+        host: [`{{host}}${parent.is_global ? '': '{{prefix}}'}`],
         path: pathItems,
       },
     },
@@ -517,10 +535,8 @@ File: ${filePath}
 
       const { tags } = comment;
 
-      if (tags.body) {
-        const mode = tags.bodyMode
-          ? tags.bodyMode[0]
-          : 'raw';
+      if (tags.body || tags.bodyMode) {
+        const mode = tags.bodyMode || 'raw';
 
         request.body = { mode };
 
@@ -528,9 +544,13 @@ File: ${filePath}
           request.body.raw = tags.body;
         } else {
           try {
-            request.body[mode] = JSON.parse(tags.body);
+            request.body[mode] = JSON.parse(tags[mode] || tags.body || '');
           } catch (e) {
-            // Do nothing, just proceed
+            debug(
+              'Unable to parse the request body of',
+              req.request.method,
+              `/${req.request.url.path.join('/')}`,
+            );
           }
         }
       }
