@@ -39,7 +39,7 @@
   "license": "MIT",
   "dependencies": {
     "doctrine": "^3.0.0",
-    "documentation": "^13.0.0",
+    "documentation": "^13.0.1",
     "esprima": "^4.0.1",
     "find-process": "^1.4.3",
     "func-loc": "^0.1.12",
