@@ -380,9 +380,11 @@ exports.cache = async function cache(req, res, next) {
  * @param {String} path The path of the IAM file
  * @param {String} method The HTTP method
  * @param {Object} obj The IAM method object
+ * @param {Object} doc The current doc
+ * @param {Object} parent The IAM module
  * @returns {Array} List of routes in postman format
  */
-exports.extract = async (path, method, obj, doc) => {
+exports.extract = async (path, method, obj, doc, parent) => {
   const { title: name = 'Not specified' } = obj;
 
   const pathItems = path
@@ -420,7 +422,7 @@ exports.extract = async (path, method, obj, doc) => {
         raw: method === 'GET' ? '' : '{}',
       },
       url: {
-        host: ['{{host}}{{prefix}}'],
+        host: [`{{host}}${m.is_global ? '': '{{prefix}}'}`],
         path: pathItems,
       },
     },
@@ -454,6 +456,7 @@ exports.extractRoutes = async (filePath, doc) => {
           method.toUpperCase(),
           methods[method],
           doc,
+          m,
         );
         return result;
       });
