@@ -93,12 +93,15 @@ exports.create = async function create(req, res) {
  * @param {Function} next Go to the next middleware
  */
 exports.isCached = async function isCached(req, res, next) {
-  try {
-    // eslint-disable-next-line global-require, import/no-dynamic-require
-    req.collection = require(cachePath);
-    return next();
-  } catch (e) {
-    // Do nothing
+  const { force } = req.query;
+  if(force !== 'true') {
+    try {
+      // eslint-disable-next-line global-require, import/no-dynamic-require
+      req.collection = require(cachePath);
+      return next();
+    } catch (e) {
+      // Do nothing
+    }
   }
 
   // Generate the doc if it does not exist
