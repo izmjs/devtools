@@ -8,6 +8,10 @@ const { readFile, writeFile } = require('fs');
 const { promisify } = require('util');
 const doctrine = require('doctrine');
 const { isExcluded } = require('@helpers/utils');
+const { red } = require('chalk');
+const Ajv = require('ajv');
+
+const ajv = new Ajv();
 
 let postmanVariables;
 
@@ -32,7 +36,9 @@ const readFile$ = promisify(readFile);
 const cachePath = resolve(__dirname, '../.cache/postman.collection.json');
 const statusCodes = require('../helpers/status-codes.server.helper');
 const filesProvider = require('../helpers/files-provider.server.helper');
+const paramsSchema = require('../schemas/params.server.schema');
 
+const validateParams = ajv.compile(paramsSchema);
 const { link: repoLink, type: repoType = 'local' } = devtools.repository;
 const HTTP_METHODS = ['get', 'post', 'put', 'delete'];
 
@@ -488,6 +494,22 @@ exports.extractRoutes = async (filePath, doc) => {
 };
 
 /**
+ * Validates an array if it has the right format
+ * @param {{[key: string]: string}[]} array The object to validate
+ * @param {string} reason The reason of the validation error
+ * @param {*} filePath The file path
+ */
+exports.validateParams = (array, reason, filePath, method) => {
+  if(!validateParams(array)) {
+    debug(`${red('Invalid request params detected')}
+file    : ${filePath}:${method.location}
+Reason  : ${reason}
+Request : ${JSON.stringify(array, null, '  ')}
+Error   : ${JSON.stringify(validateParams.errors, null, '  ')}`);
+  }
+};
+
+/**
  * Extract comments and add them to the list
  */
 exports.extractComments = async (filePath, requests, doc) => {
@@ -552,6 +574,8 @@ File: ${filePath}
               `/${req.request.url.path.join('/')}`,
             );
           }
+
+          this.validateParams(request.body[mode], `${mode} content`, filePath, method);
         }
       }
 
@@ -564,6 +588,8 @@ File: ${filePath}
             key: 'Content-Type',
             value: 'application/json',
           });
+        } else {
+          this.validateParams(request.headers, 'Request headers', filePath, method);
         }
       }
 
@@ -592,8 +618,9 @@ File: ${filePath}
       }
 
       // Set query params
-      if (tags.params) {
+      if (tags.params && tags.params.length > 0) {
         request.url.query = tags.params;
+        this.validateParams(tags.params, 'Request params', filePath, method);
       }
 
       // Set examples

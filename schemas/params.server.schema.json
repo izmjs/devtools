@@ -1,0 +1,11 @@
+{
+  "type": "array",
+  "items": {
+    "type": "object",
+    "patternProperties": {
+      ".*": {
+        "type": "string"
+      }
+    }
+  }
+}
