@@ -1,5 +1,4 @@
-// eslint-disable-next-line
-const { validate } = require('utils');
+const { validate } = require('@helpers/utils');
 
 const ctrls = require('../controllers/manage.server.controller');
 const addModuleSchema = require('../schemas/add-module.server.schema');

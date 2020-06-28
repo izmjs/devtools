@@ -1,5 +1,4 @@
-// eslint-disable-next-line import/no-unresolved
-const { getIO } = require('utils');
+const { getIO } = require('@helpers/utils');
 const { access } = require('fs');
 const { resolve } = require('path');
 const { promisify } = require('util');

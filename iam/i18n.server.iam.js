@@ -1,5 +1,4 @@
-// eslint-disable-next-line import/no-unresolved
-const { validate } = require('utils');
+const { validate } = require('@helpers/utils');
 const ctrls = require('../controllers/i18n.server.controller');
 const nsCtrls = require('../controllers/ns.server.controller');
 

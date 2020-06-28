@@ -1,8 +1,7 @@
 const { promisify } = require('util');
 const { resolve } = require('path');
 const { unlink } = require('fs');
-// eslint-disable-next-line import/no-unresolved
-const { addIamToRoles } = require('utils');
+const { addIamToRoles } = require('@helpers/utils');
 
 const unlink$ = promisify(unlink);
 const cachePath = resolve(__dirname, '../.cache/postman.collection.json');

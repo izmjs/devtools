@@ -15,7 +15,10 @@
   "POSTMAN_KEY": {
     "name": "Postman key",
     "defaultValue": "",
-    "scope": "devtools"
+    "scope": "devtools",
+    "field": {
+      "type": "password"
+    }
   },
   "CLEAN_ON_BOOT": {
     "name": "Clean postman cache on boot?",
@@ -37,7 +40,10 @@
   "TRANSLATE_KEY": {
     "name": "Translation provider key",
     "defaultValue": "",
-    "scope": "devtools"
+    "scope": "devtools",
+    "field": {
+      "type": "password"
+    }
   },
   "TRANSLATE_BASE_LANGUAGE": {
     "name": "Translation base language",

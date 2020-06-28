@@ -1,5 +1,4 @@
-// eslint-disable-next-line import/no-unresolved
-const { validate } = require('utils');
+const { validate } = require('@helpers/utils');
 const ctrl = require('../controllers/config.server.controller');
 
 const setSchema = require('../schemas/set-env.server.schema.json');

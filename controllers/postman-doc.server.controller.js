@@ -26,11 +26,9 @@ const {
   app,
   files,
   devtools,
-  // eslint-disable-next-line import/no-dynamic-require
-} = require(resolve('config'));
+} = require('@config/index');
 const { prefix } = app;
-// eslint-disable-next-line import/no-unresolved
-const { getBaseURLFromRequest } = require('utils');
+const { getBaseURLFromRequest } = require('@helpers/utils');
 
 const readFile$ = promisify(readFile);
 const cachePath = resolve(__dirname, '../.cache/postman.collection.json');
