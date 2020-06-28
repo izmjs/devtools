@@ -7,7 +7,6 @@ const esprima = require('esprima');
 const { readFile, writeFile } = require('fs');
 const { promisify } = require('util');
 const doctrine = require('doctrine');
-const { isExcluded } = require('@helpers/utils');
 const { red } = require('chalk');
 const Ajv = require('ajv');
 
@@ -27,8 +26,9 @@ const {
   files,
   devtools,
 } = require('@config/index');
+const { isExcluded, getBaseURLFromRequest } = require('@helpers/utils');
+
 const { prefix } = app;
-const { getBaseURLFromRequest } = require('@helpers/utils');
 
 const readFile$ = promisify(readFile);
 const cachePath = resolve(__dirname, '../.cache/postman.collection.json');

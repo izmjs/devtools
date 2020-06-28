@@ -1,18 +1,17 @@
 /* eslint-env node, mocha */
-/* eslint-disable import/no-dynamic-require */
 const request = require('supertest');
 const { resolve, basename } = require('path');
 const { expect } = require('chai');
 const mongoose = require('mongoose');
 
-const { createUser } = require(resolve('helpers/utils'));
+const { createUser } = require('@helpers/utils');
 
 const {
   it, before, describe, afterEach,
 } = require('mocha');
 
-const express = require(resolve('./config/lib/express'));
-const { prefix } = require(resolve('config')).app;
+const express = require('@config/lib/express');
+const { prefix } = require('@config/index').app;
 
 const User = mongoose.model('User');
 const moduleName = basename(resolve(__dirname, '..'));
