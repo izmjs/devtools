@@ -39,7 +39,7 @@
   "license": "MIT",
   "dependencies": {
     "doctrine": "^3.0.0",
-    "documentation": "^13.0.1",
+    "documentation": "^13.0.2",
     "esprima": "^4.0.1",
     "find-process": "^1.4.3",
     "func-loc": "^0.1.12",
@@ -48,7 +48,7 @@
     "react-dev-utils": "^10.2.1",
     "tar": "^6.0.2",
     "translate": "^1.1.2",
-    "uuid": "^8.1.0"
+    "uuid": "^8.2.0"
   },
   "optionalDependencies": {
     "acorn": "^7.3.1"
