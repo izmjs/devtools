@@ -47,18 +47,18 @@
     "documentation": "^13.0.2",
     "esprima": "^4.0.1",
     "find-process": "^1.4.3",
-    "func-loc": "^0.1.12",
+    "func-loc": "^0.1.13",
     "libnpmpublish": "^3.0.1",
     "libnpmsearch": "^3.0.0",
     "react-dev-utils": "^10.2.1",
-    "tar": "^6.0.2",
+    "tar": "^6.0.5",
     "translate": "^1.1.2",
-    "uuid": "^8.2.0"
+    "uuid": "^8.3.0"
   },
   "optionalDependencies": {
-    "acorn": "^7.3.1"
+    "acorn": "^8.0.2"
   },
   "devDependencies": {
-    "release-it": "^13.6.6"
+    "release-it": "^14.0.3"
   }
 }
