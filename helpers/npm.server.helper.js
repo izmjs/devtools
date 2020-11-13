@@ -1,6 +1,6 @@
 const http = require('http');
 const https = require('https');
-const request = require('request');
+const fetch = require('node-fetch');
 const { platform } = require('os');
 const { resolve } = require('path');
 const { promisify } = require('util');
@@ -32,20 +32,6 @@ const spawn$ = (...args) => new Promise((done, reject) => {
   cmd.on('error', reject);
   cmd.on('close', () => done(result.trim()));
 });
-
-const request$ = (options) => new Promise((cb, reject) => request(
-  options,
-  (error, response, body) => {
-    if (error) {
-      return reject(error);
-    }
-
-    return cb({
-      response,
-      body,
-    });
-  },
-));
 
 exports.npmCmd = npmCmd;
 
@@ -201,7 +187,8 @@ exports.list = async (folder = resolve(), mode = 'prod') => {
  * Get downloads number of a specific module
  * @param {String} next The module name
  */
-exports.downloads = (module) => request$({
-  url: `https://api.npmjs.org/downloads/point/last-week/${module}`,
-  json: true,
-}).then(({ body }) => body);
+exports.downloads = async (module) => {
+  const response = await fetch(`https://api.npmjs.org/downloads/point/last-week/${module}`);
+  const json = await response.json();
+  return json;
+};
