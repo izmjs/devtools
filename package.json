@@ -51,7 +51,7 @@
     "libnpmpublish": "^4.0.0",
     "libnpmsearch": "^3.0.1",
     "node-fetch": "^2.6.1",
-    "react-dev-utils": "^11.0.0",
+    "react-dev-utils": "^11.0.1",
     "tar": "^6.0.5",
     "translate": "^1.1.2",
     "uuid": "^8.3.1"
@@ -60,6 +60,6 @@
     "acorn": "^8.0.4"
   },
   "devDependencies": {
-    "release-it": "^14.2.1"
+    "release-it": "^14.2.2"
   }
 }
