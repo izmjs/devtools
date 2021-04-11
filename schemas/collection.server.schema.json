@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "https://schema.getpostman.com/json/draft-07/collection/v2.0.0/",
+  "$id": "https://schema.getpostman.com/json/draft-07/collection/v2.1.0/",
   "type": "object",
   "properties": {
     "info": {
@@ -43,6 +43,22 @@
   },
   "required": ["info", "item"],
   "definitions": {
+    "auth-attribute": {
+      "type": "object",
+      "title": "Auth",
+      "$id": "#/definitions/auth-attribute",
+      "description": "Represents an attribute for any authorization method provided by Postman. For example `username` and `password` are set as auth attributes for Basic Authentication method.",
+      "properties": {
+        "key": {
+          "type": "string"
+        },
+        "value": {},
+        "type": {
+          "type": "string"
+        }
+      },
+      "required": ["key"]
+    },
     "auth": {
       "type": "object",
       "title": "Auth",
@@ -52,57 +68,99 @@
         "type": {
           "type": "string",
           "enum": [
+            "apikey",
             "awsv4",
             "basic",
             "bearer",
             "digest",
+            "edgegrid",
             "hawk",
-            "ntlm",
             "noauth",
             "oauth1",
-            "oauth2"
+            "oauth2",
+            "ntlm"
           ]
         },
         "noauth": {},
+        "apikey": {
+          "type": "array",
+          "title": "API Key Authentication",
+          "description": "The attributes for API Key Authentication.",
+          "items": {
+            "$ref": "#/definitions/auth-attribute"
+          }
+        },
         "awsv4": {
-          "type": "object",
+          "type": "array",
           "title": "AWS Signature v4",
-          "description": "The attributes for [AWS Auth](http://docs.aws.amazon.com/AmazonS3/latest/dev/RESTAuthentication.html). e.g. accessKey, secretKey, region, service."
+          "description": "The attributes for [AWS Auth](http://docs.aws.amazon.com/AmazonS3/latest/dev/RESTAuthentication.html).",
+          "items": {
+            "$ref": "#/definitions/auth-attribute"
+          }
         },
         "basic": {
-          "type": "object",
+          "type": "array",
           "title": "Basic Authentication",
-          "description": "The attributes for [Basic Authentication](https://en.wikipedia.org/wiki/Basic_access_authentication). e.g. username, password."
+          "description": "The attributes for [Basic Authentication](https://en.wikipedia.org/wiki/Basic_access_authentication).",
+          "items": {
+            "$ref": "#/definitions/auth-attribute"
+          }
         },
         "bearer": {
-          "type": "object",
+          "type": "array",
           "title": "Bearer Token Authentication",
-          "description": "The attributes for [Bearer Token Authentication](https://tools.ietf.org/html/rfc6750). e.g. token."
+          "description": "The helper attributes for [Bearer Token Authentication](https://tools.ietf.org/html/rfc6750)",
+          "items": {
+            "$ref": "#/definitions/auth-attribute"
+          }
         },
         "digest": {
-          "type": "object",
+          "type": "array",
           "title": "Digest Authentication",
-          "description": "The attributes for [Digest Authentication](https://en.wikipedia.org/wiki/Digest_access_authentication). e.g. username, password, realm, nonce, nonceCount, algorithm, qop, opaque, clientNonce."
+          "description": "The attributes for [Digest Authentication](https://en.wikipedia.org/wiki/Digest_access_authentication).",
+          "items": {
+            "$ref": "#/definitions/auth-attribute"
+          }
+        },
+        "edgegrid": {
+          "type": "array",
+          "title": "EdgeGrid Authentication",
+          "description": "The attributes for [Akamai EdgeGrid Authentication](https://developer.akamai.com/legacy/introduction/Client_Auth.html).",
+          "items": {
+            "$ref": "#/definitions/auth-attribute"
+          }
         },
         "hawk": {
-          "type": "object",
+          "type": "array",
           "title": "Hawk Authentication",
-          "description": "The attributes for [Hawk Authentication](https://github.com/hueniverse/hawk). e.g. authId, authKey, algorith, user, nonce, extraData, appId, delegation, timestamp."
+          "description": "The attributes for [Hawk Authentication](https://github.com/hueniverse/hawk)",
+          "items": {
+            "$ref": "#/definitions/auth-attribute"
+          }
         },
         "ntlm": {
-          "type": "object",
+          "type": "array",
           "title": "NTLM Authentication",
-          "description": "The attributes for [NTLM Authentication](https://msdn.microsoft.com/en-us/library/cc237488.aspx). e.g. username, password, domain, workstation."
+          "description": "The attributes for [NTLM Authentication](https://msdn.microsoft.com/en-us/library/cc237488.aspx)",
+          "items": {
+            "$ref": "#/definitions/auth-attribute"
+          }
         },
         "oauth1": {
-          "type": "object",
+          "type": "array",
           "title": "OAuth1",
-          "description": "The attributes for [OAuth1](https://oauth.net/1/). e.g. consumerKey, consumerSecret, token, tokenSecret, signatureMethod, timestamp, nonce, version, realm, encodeOAuthSign."
+          "description": "The attributes for [OAuth2](https://oauth.net/1/)",
+          "items": {
+            "$ref": "#/definitions/auth-attribute"
+          }
         },
         "oauth2": {
-          "type": "object",
+          "type": "array",
           "title": "OAuth2",
-          "description": "The attributes for [OAuth2](https://oauth.net/2/). e.g. accessToken, addTokenTo."
+          "description": "Helper attributes for [OAuth2](https://oauth.net/2/)",
+          "items": {
+            "$ref": "#/definitions/auth-attribute"
+          }
         }
       },
       "required": ["type"]
@@ -129,7 +187,7 @@
         "matches": {
           "description": "A list of Url match pattern strings, to identify Urls this certificate can be used for.",
           "type": "array",
-          "item": {
+          "items": {
             "type": "string",
             "description": "An Url match pattern string"
           }
@@ -400,7 +458,6 @@
       "required": ["item"]
     },
     "item": {
-      "$schema": "http://json-schema.org/draft-07/schema#",
       "type": "object",
       "title": "Item",
       "$id": "#/definitions/item",
@@ -559,10 +616,13 @@
                   "properties": {
                     "mode": {
                       "description": "Postman stores the type of data associated with this request in this field.",
-                      "enum": ["raw", "urlencoded", "formdata", "file"]
+                      "enum": ["raw", "urlencoded", "formdata", "file", "graphql"]
                     },
                     "raw": {
                       "type": "string"
+                    },
+                    "graphql": {
+                      "type": "object"
                     },
                     "urlencoded": {
                       "type": "array",
@@ -592,7 +652,7 @@
                       "items": {
                         "type": "object",
                         "title": "FormParameter",
-                        "oneOf": [
+                        "anyOf": [
                           {
                             "properties": {
                               "key": {
@@ -626,7 +686,7 @@
                                 "type": "string"
                               },
                               "src": {
-                                "type": ["string", "null"]
+                                "type": ["array", "string", "null"]
                               },
                               "disabled": {
                                 "type": "boolean",
@@ -670,6 +730,10 @@
                         }
                       }
                     },
+                    "options": {
+                      "type": "object",
+                      "description": "Additional configurations and options set for various body modes."
+                    },
                     "disabled": {
                       "type": "boolean",
                       "default": false,
@@ -704,8 +768,8 @@
         },
         "responseTime": {
           "title": "ResponseTime",
-          "description": "The time taken by the request to complete. If a number, the unit is milliseconds. If the response is manually created, this can be set to `null`.",
-          "type": ["null", "string", "number"]
+          "type": ["null", "string", "number"],
+          "description": "The time taken by the request to complete. If a number, the unit is milliseconds. If the response is manually created, this can be set to `null`."
         },
         "timings": {
           "title": "Response Timings",
@@ -732,10 +796,7 @@
               }
             },
             {
-              "type": "string"
-            },
-            {
-              "type": "null"
+              "type": ["string", "null"]
             }
           ]
         },

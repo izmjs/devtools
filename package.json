@@ -44,22 +44,22 @@
   "license": "MIT",
   "dependencies": {
     "doctrine": "^3.0.0",
-    "documentation": "^13.1.0",
+    "documentation": "^13.2.1",
     "esprima": "^4.0.1",
     "find-process": "^1.4.4",
     "func-loc": "^0.1.15",
     "libnpmpublish": "^4.0.0",
-    "libnpmsearch": "^3.0.1",
+    "libnpmsearch": "^3.1.0",
     "node-fetch": "^2.6.1",
-    "react-dev-utils": "^11.0.1",
-    "tar": "^6.0.5",
-    "translate": "^1.1.2",
-    "uuid": "^8.3.1"
+    "react-dev-utils": "^11.0.4",
+    "tar": "^6.1.0",
+    "translate": "^1.2.3",
+    "uuid": "^8.3.2"
   },
   "optionalDependencies": {
-    "acorn": "^8.0.4"
+    "acorn": "^8.1.0"
   },
   "devDependencies": {
-    "release-it": "^14.2.2"
+    "release-it": "^14.6.0"
   }
 }

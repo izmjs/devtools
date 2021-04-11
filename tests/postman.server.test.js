@@ -13,7 +13,9 @@ const User = model('User');
 
 const { createUser } = require('@helpers/utils');
 
-const ajv = new Ajv();
+const ajv = new Ajv({
+  strict: false,
+});
 // official schemas
 
 
