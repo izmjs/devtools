@@ -1,7 +1,7 @@
 const { validate } = require('@helpers/utils');
 
 const ctrls = require('../controllers/manage.server.controller');
-const addModuleSchema = require('../schemas/add-module.server.schema');
+const addModuleSchema = require('../schemas/add-module.server.schema.json');
 
 /**
 * @type { IAM.default }

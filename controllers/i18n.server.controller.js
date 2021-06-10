@@ -7,7 +7,7 @@ const readFile$ = promisify(readFile);
 const unlink$ = promisify(unlink);
 const { translate: config } = require('@config/index').devtools;
 
-const LANGUAGES_NAMES = require('../helpers/lng-names.server.helper');
+const LANGUAGES_NAMES = require('../helpers/lng-names.server.helper.json');
 // Support 10 Most Spoken Languages In The World
 // https://www.babbel.com/en/magazine/the-10-most-spoken-languages-in-the-world/
 const SUPPORTED_LANGUAGES = ['en', 'zh', 'hi', 'es', 'fr', 'ar', 'ru', 'bn', 'pt', 'id'];

@@ -2,8 +2,8 @@ const { validate } = require('@helpers/utils');
 const ctrls = require('../controllers/i18n.server.controller');
 const nsCtrls = require('../controllers/ns.server.controller');
 
-const translateSchema = require('../schemas/translate.server.schema');
-const removeLngsSchema = require('../schemas/remove-lngs.server.schema');
+const translateSchema = require('../schemas/translate.server.schema.json');
+const removeLngsSchema = require('../schemas/remove-lngs.server.schema.json');
 
 /**
  * @type { IAM.default }

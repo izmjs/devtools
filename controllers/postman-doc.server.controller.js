@@ -32,9 +32,9 @@ const { prefix } = app;
 
 const readFile$ = promisify(readFile);
 const cachePath = resolve(__dirname, '../.cache/postman.collection.json');
-const statusCodes = require('../helpers/status-codes.server.helper');
+const statusCodes = require('../helpers/status-codes.server.helper.json');
 const filesProvider = require('../helpers/files-provider.server.helper');
-const paramsSchema = require('../schemas/params.server.schema');
+const paramsSchema = require('../schemas/params.server.schema.json');
 
 const validateParams = ajv.compile(paramsSchema);
 const { link: repoLink, type: repoType = 'local' } = devtools.repository;
