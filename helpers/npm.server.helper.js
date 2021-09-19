@@ -1,37 +1,34 @@
 const http = require('http');
 const https = require('https');
-const fetch = require('node-fetch');
 const { platform } = require('os');
 const { resolve } = require('path');
 const { promisify } = require('util');
 const { spawn } = require('child_process');
-const {
-  rename,
-  readFile,
-} = require('fs');
+const { rename, readFile } = require('fs');
 
 const npmCmd = platform().startsWith('win') ? 'npm.cmd' : 'npm';
 const installedCache = {};
 
 const rename$ = promisify(rename);
 const readFile$ = promisify(readFile);
-const spawn$ = (...args) => new Promise((done, reject) => {
-  const cmd = spawn(...args);
-  let result = '';
+const spawn$ = (...args) =>
+  new Promise((done, reject) => {
+    const cmd = spawn(...args);
+    let result = '';
 
-  if (cmd.stdout) {
-    cmd.stdout.on('data', (data) => {
-      result += data;
-    });
-  } else {
-    cmd.on('data', (data) => {
-      result += data;
-    });
-  }
+    if (cmd.stdout) {
+      cmd.stdout.on('data', (data) => {
+        result += data;
+      });
+    } else {
+      cmd.on('data', (data) => {
+        result += data;
+      });
+    }
 
-  cmd.on('error', reject);
-  cmd.on('close', () => done(result.trim()));
-});
+    cmd.on('error', reject);
+    cmd.on('close', () => done(result.trim()));
+  });
 
 exports.npmCmd = npmCmd;
 
@@ -42,11 +39,7 @@ exports.npmCmd = npmCmd;
  * @returns {Promise} The tarball link
  */
 exports.view = async (moduleName, version = 'latest') => {
-  const result = await spawn$(npmCmd, [
-    'view',
-    `${moduleName}@${version}`,
-    'dist.tarball',
-  ]);
+  const result = await spawn$(npmCmd, ['view', `${moduleName}@${version}`, 'dist.tarball']);
 
   return result;
 };
@@ -56,16 +49,12 @@ exports.view = async (moduleName, version = 'latest') => {
  * @param {String} moduleName The module name
  * @param {String} version The module version
  */
-exports.download = (moduleName, version = 'latest') => new Promise((done) => {
-  exports
-    .view(moduleName, version)
-    .then((url) => {
-      (url.startsWith('https') ? https : http).request(
-        url,
-        done,
-      ).end();
+exports.download = (moduleName, version = 'latest') =>
+  new Promise((done) => {
+    exports.view(moduleName, version).then((url) => {
+      (url.startsWith('https') ? https : http).request(url, done).end();
     });
-});
+  });
 
 /**
  * Pack a module and move it to target path
@@ -104,10 +93,7 @@ exports.pack = async (moduleFolder, target) => {
   const newName = resolve(target, `${pkg.name}.tgz`);
 
   try {
-    await rename$(
-      resolve(moduleFolder, `${pkg.name}-${pkg.version}.tgz`),
-      newName,
-    );
+    await rename$(resolve(moduleFolder, `${pkg.name}-${pkg.version}.tgz`), newName);
   } catch (e) {
     return {
       success: false,
@@ -128,14 +114,15 @@ exports.pack = async (moduleFolder, target) => {
  * @param {OutcommingMessage} res The response
  * @param {Function} next Go to the next middleware
  */
-exports.install = (name, version = 'latest', folder = resolve(), mode = 'prod') => spawn$('npm', [
-  'i',
-  `${name}@${version}`,
-  ['dev', 'prod'].indexOf(mode) >= 0 ? `--only=${mode}` : '',
-], {
-  cwd: folder,
-  stdio: 'inherit',
-});
+exports.install = (name, version = 'latest', folder = resolve(), mode = 'prod') =>
+  spawn$(
+    'npm',
+    ['i', `${name}@${version}`, ['dev', 'prod'].indexOf(mode) >= 0 ? `--only=${mode}` : ''],
+    {
+      cwd: folder,
+      stdio: 'inherit',
+    },
+  );
 
 /**
  * List installed modules
@@ -150,30 +137,28 @@ exports.list = async (folder = resolve(), mode = 'prod') => {
   }
 
   try {
-    const content = await spawn$('npm', [
-      'ls',
-      '--depth=0',
-      ['dev', 'prod'].indexOf(mode) >= 0 ? `--only=${mode}` : '',
-      '--json',
-    ], {
-      cwd: folder,
-    });
+    const content = await spawn$(
+      'npm',
+      ['ls', '--depth=0', ['dev', 'prod'].indexOf(mode) >= 0 ? `--only=${mode}` : '', '--json'],
+      {
+        cwd: folder,
+      },
+    );
 
     json = JSON.parse(content);
-    json.dependencies = Object.keys(json.dependencies)
-      .map((name) => {
-        let obj = json.dependencies[name];
+    json.dependencies = Object.keys(json.dependencies).map((name) => {
+      let obj = json.dependencies[name];
 
-        if (obj.required) {
-          const { _from: from, version, _resolved: resolved } = obj.required;
-          obj = { version, from, resolved };
-        }
+      if (obj.required) {
+        const { _from: from, version, _resolved: resolved } = obj.required;
+        obj = { version, from, resolved };
+      }
 
-        return {
-          name,
-          ...obj,
-        };
-      });
+      return {
+        name,
+        ...obj,
+      };
+    });
 
     installedCache[folder] = installedCache[folder] || {};
     installedCache[folder][mode] = json.dependencies;
@@ -187,8 +172,24 @@ exports.list = async (folder = resolve(), mode = 'prod') => {
  * Get downloads number of a specific module
  * @param {String} next The module name
  */
-exports.downloads = async (module) => {
-  const response = await fetch(`https://api.npmjs.org/downloads/point/last-week/${module}`);
-  const json = await response.json();
-  return json;
-};
+exports.downloads = (module) =>
+  new Promise((done, reject) => {
+    https.get(`https://api.npmjs.org/downloads/point/last-week/${module}`, (res) => {
+      let body = '';
+
+      res.on('data', (chunk) => {
+        body += chunk;
+      });
+
+      res.on('end', () => {
+        try {
+          const json = JSON.parse(body);
+          done(json);
+        } catch (error) {
+          reject(error);
+        }
+      });
+    });
+  }).on('error', (error) => {
+    console.error(error.message);
+  });
