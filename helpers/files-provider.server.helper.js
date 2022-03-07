@@ -4,7 +4,7 @@
  * @param {Object} location Contains the location of the file (reference, line and column)
  * @returns {String} Formatted URL
  */
-exports.gitlab = (url = '', location) => {
+exports.gitlab = (url = '', location = {}) => {
   const { source, line = 1 } = location;
   return `${url}/${source}#L${line}`;
 };
@@ -15,7 +15,7 @@ exports.gitlab = (url = '', location) => {
  * @param {Object} location Contains the location of the file (reference, line and column)
  * @returns {String} Formatted URL
  */
-exports.github = (url = '', location) => {
+exports.github = (url = '', location = {}) => {
   const { source, line = 1 } = location;
   return `${url}/${source}#L${line}`;
 };
@@ -26,7 +26,7 @@ exports.github = (url = '', location) => {
  * @param {Object} location Contains the location of the file (reference, line and column)
  * @returns {String} Formatted URL
  */
-exports.bitbucket = (url = '', location) => {
+exports.bitbucket = (url = '', location = {}) => {
   const { source, line = 1 } = location;
   return `${url}/${source}#lines-${line}`;
 };
@@ -37,7 +37,7 @@ exports.bitbucket = (url = '', location) => {
  * @param {Object} location Contains the location of the file (reference, line and column)
  * @returns {String} Formatted URL
  */
-exports.local = (url = 'http://localhost:3000/api/v1/devtools/files/open', location) => {
+exports.local = (url = 'http://localhost:3000/api/v1/devtools/files/open', location = {}) => {
   const { source, line = 1, col = 0 } = location;
   return `${url}?file=${source}&line=${line}&col=${col}`;
 };
