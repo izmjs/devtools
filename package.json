@@ -59,6 +59,6 @@
     "acorn": "^8.7.0"
   },
   "devDependencies": {
-    "release-it": "^14.12.5"
+    "release-it": "^15.6.0"
   }
 }
